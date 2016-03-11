@@ -38,4 +38,4 @@ RUN source activate keras \
   && git clone https://github.com/lukovkin/hyperopt.git \
   && cd hyperopt/ \
   && git checkout fmin-fix \
-  && python setup.py
+  && python setup.py install
