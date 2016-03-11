@@ -24,9 +24,18 @@ RUN source activate keras \
     h5py \
     pandas \
     scikit-learn \
+    networkx \
     quandl
 RUN source activate keras \
   && pip install --no-deps git+git://github.com/Theano/Theano.git \
   && pip install git+git://github.com/pykalman/pykalman.git \
-  && pip install keras \
-  && pip install git+git://github.com/hyperopt/hyperopt.git
+  && pip install keras
+
+RUN echo $'[global]\nopenmp = True\n' > ~/.theanorc
+
+RUN source activate keras \
+  && git config --global http.sslVerify false \
+  && git clone https://github.com/lukovkin/hyperopt.git \
+  && cd hyperopt/ \
+  && git checkout fmin-fix \
+  && python setup.py
