@@ -7,6 +7,9 @@ RUN apt-get update \
     build-essential \
     curl \
     git \
+    mercurial \
+    nano \
+    vim \
   && rm -rf /var/lib/apt/lists/*
 
 RUN curl -qsSLkO \
@@ -25,6 +28,7 @@ RUN source activate keras \
     pandas \
     scikit-learn \
     networkx \
+    pyyaml \
     quandl
 RUN source activate keras \
   && pip install --no-deps git+git://github.com/Theano/Theano.git \
@@ -32,6 +36,8 @@ RUN source activate keras \
   && pip install git+git://github.com/fchollet/keras.git --no-deps
 
 RUN echo $'[global]\nopenmp = True\n' > ~/.theanorc
+
+ENV OMP_NUM_THREADS=12
 
 RUN source activate keras \
   && git config --global http.sslVerify false \
